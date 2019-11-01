@@ -1,0 +1,68 @@
+import random
+from random import shuffle
+def deck():
+  deck = []
+  for suit in [" Of Hearts", " Of Spades", " Of Diamonds", " Of Clubs" ]:
+    for rank in ["King", "Queen", "Jack", "Ten", "9", "8", "7", "6", "5", "4", "3", "2", "Ace"]:
+      deck.append(rank+suit)
+  shuffle(deck)
+  return deck
+
+  def pointcount(playercard):
+    playercount = 0
+    acecount = 0
+    for i in playercard:
+      if i[1] == "Jack" or i[1] == "Queen" or i[1] == "King" or i[1] == "Ten":
+        playercount += 10
+      elif i[1] != "Ace":
+        playercount += int(i[1])
+      elif acecount !=0 :
+        acecount += 1
+    if acecount == 1 and playercount >=10:
+      playercount += 11
+    else:
+      playercount += 1
+    return playercount
+  
+  def createplayinghands(playerdeck):
+    dealerhand = []
+    playerhand = []
+    dealerhand.append(playerdeck.pop())
+    dealerhand.append(playerdeck.pop())
+    playerhand.append(playerdeck.pop())
+    playerhand.append(playerdeck.pop())
+    while pointcount(dealerhand) <= 16:
+      dealerhand.append(playerdeck.pop())
+    return [dealerhand, playerhand]
+
+  game = ""
+  playerdeck = deck()
+  hands = createplayinghands(playerdeck)
+  dealer = hands[0]
+  player = hands[1]
+  while game != "exit":
+    dealercount = pointcount(dealer)
+    playercount = pointcount(player)
+    print ("Dealer has: ")
+    print (dealer[0])
+    print ("Player1, you have: ")
+    print (player)
+    if playercount == 21:
+      print("BLACKJACK BABY!!!! PLAYER WINS!!!")
+      break
+    elif playercount > 21:
+      print("PLAYER BUSTS! YOU HAD " + str(playercount) + "POINTS. DEALER WINS. BETTER LUCK NEXT TIME")
+      break
+    elif dealercount > 21:
+      print("DEALER BUSTS WITH " + str(dealercount) + "POINTS. PLAYER WINS!!!")
+    game = input("Stick or Twist")
+    if game == "Twist":
+      player.append(mydeck.pop())
+    elif playercount > dealercount:
+      print("YOU WIN WITH" + playercount = "POINTS")
+      print("Dealer has: " + str(dealer) + "or" + str(dealercount) + "points")
+      break
+    else:
+      print("DEALER WINS. YOU LOOSE. BETTER LUCK NEXT TIME")
+      print("Dealer has: " +str(dealer) + "or" + str(dealercount) + "points")
+      break
